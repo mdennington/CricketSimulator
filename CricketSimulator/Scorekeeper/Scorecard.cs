@@ -101,17 +101,22 @@ namespace CricketSimulator.Model
 
         public int Runs(int inningsNum)
         {
-            return match[inningsNum - 1].runs;
+            return match[inningsNum].runs;
         }
 
         public int Wickets(int inningsNum)
         {
-            return match[inningsNum - 1].wickets;
+            return match[inningsNum].wickets;
         }
 
         public int Overs(int inningsNum)
         {
-            return match[inningsNum - 1].overs;
+            return match[inningsNum].overs;
+        }
+        
+        public int Innings()
+        {
+            return _currentInnings;
         }
     }
 

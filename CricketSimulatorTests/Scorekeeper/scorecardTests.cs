@@ -85,9 +85,9 @@ namespace CricketSimulatorTests
             card.EndOfOver();
 
             // Assertions #1
-            Assert.Equal(4, card.Runs(1));
-            Assert.Equal(1, card.Wickets(1));
-            Assert.Equal(2, card.Overs(1));
+            Assert.Equal(4, card.Runs(0));
+            Assert.Equal(1, card.Wickets(0));
+            Assert.Equal(2, card.Overs(0));
 
             // Innings #2
             inningsNum = card.StartInnings();
@@ -99,13 +99,13 @@ namespace CricketSimulatorTests
             card.EndOfOver(); 
 
             // Assertions #2
-            Assert.Equal(4, card.Runs(1));
-            Assert.Equal(1, card.Wickets(1));
-            Assert.Equal(2, card.Overs(1));
+            Assert.Equal(4, card.Runs(0));
+            Assert.Equal(1, card.Wickets(0));
+            Assert.Equal(2, card.Overs(0));
 
-            Assert.Equal(2, card.Runs(2));
-            Assert.Equal(2, card.Wickets(2));
-            Assert.Equal(3, card.Overs(2));
+            Assert.Equal(2, card.Runs(1));
+            Assert.Equal(2, card.Wickets(1));
+            Assert.Equal(3, card.Overs(1));
 
 
         }

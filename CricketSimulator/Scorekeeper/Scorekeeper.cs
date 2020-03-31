@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CricketSimulator.Model
 {
-    class Scorekeeper : AggregateRoot
+    public class Scorekeeper : AggregateRoot
     {
         // to do - build factory pattern to create ScoreKeeper
         Scorecard _card;
@@ -41,6 +41,27 @@ namespace CricketSimulator.Model
             _card.Reset();
             return true;
         }
+
+        // Need a Get Score Interface
+        public int NumberInnings()
+        {
+            return _card.Innings();
+        }
+
+        public int RunsScored(int innings)
+        {
+            return _card.Runs(innings);
+        }
+
+        public int WicketsLost(int innings)
+        {
+            return _card.Wickets(innings);
+        }
+        public int OversBowled(int innings)
+        {
+            return _card.Overs(innings);
+        }
+
 
     }
 }
