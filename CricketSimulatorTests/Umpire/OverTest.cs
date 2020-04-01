@@ -16,6 +16,7 @@ namespace CricketSimulatorTests
             Assert.False(retVal);
             retVal = thisOver.CountBalls(outcomes.NO_RUNS);
             Assert.True(retVal);
+            Assert.Equal(3, thisOver.BallCount);
         }
 
         [Fact]

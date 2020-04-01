@@ -108,5 +108,32 @@ namespace CricketSimulatorTests
 
         }
 
+        [Fact]
+        public void test_reset_scoreboard()
+        {
+            Scorekeeper scorekeeper = new Scorekeeper();
+            scorekeeper.StartInnings();
+            scorekeeper.BallOutcome(outcomes.TWO_RUNS);
+            scorekeeper.BallOutcome(outcomes.NO_BALL);
+            scorekeeper.BallOutcome(outcomes.TWO_BYES);
+            scorekeeper.BallOutcome(outcomes.CAUGHT);
+            scorekeeper.ResetScoreboard();
+            Assert.Equal(0, scorekeeper.RunsScored(0));
+            Assert.Equal(0, scorekeeper.WicketsLost(0));
+            Assert.Equal(0, scorekeeper.OversBowled(0));
+
+        }
+
+        [Fact]
+        public void test_num_innings()
+        {
+            Scorekeeper scorekeeper = new Scorekeeper();
+            scorekeeper.StartInnings();
+            scorekeeper.StartInnings();
+            scorekeeper.StartInnings();
+            Assert.Equal(3, scorekeeper.NumberInnings());
+
+        }
+
     }
 }

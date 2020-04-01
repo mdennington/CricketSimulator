@@ -22,9 +22,9 @@ namespace CricketSimulatorTests
             Scorecard card = new Scorecard();
             int inningsNum = card.StartInnings();
             card.RunsScored(outcomes.TWO_RUNS);
-            Assert.Equal(2, card.Runs(inningsNum));
-            Assert.Equal(0, card.Wickets(inningsNum));
-            Assert.Equal(0, card.Overs(inningsNum));
+            Assert.Equal(2, card.Runs(inningsNum-1));
+            Assert.Equal(0, card.Wickets(inningsNum-1));
+            Assert.Equal(0, card.Overs(inningsNum-1));
         }
 
         [Fact]
@@ -33,9 +33,9 @@ namespace CricketSimulatorTests
             Scorecard card = new Scorecard();
             int inningsNum = card.StartInnings();
             card.WicketFallen(outcomes.BOWLED);
-            Assert.Equal(0, card.Runs(inningsNum));
-            Assert.Equal(1, card.Wickets(inningsNum));
-            Assert.Equal(0, card.Overs(inningsNum));
+            Assert.Equal(0, card.Runs(inningsNum-1));
+            Assert.Equal(1, card.Wickets(inningsNum-1));
+            Assert.Equal(0, card.Overs(inningsNum-1));
 
         }
 
@@ -45,9 +45,9 @@ namespace CricketSimulatorTests
             Scorecard card = new Scorecard();
             int inningsNum = card.StartInnings();
             card.EndOfOver();
-            Assert.Equal(0, card.Runs(inningsNum));
-            Assert.Equal(0, card.Wickets(inningsNum));
-            Assert.Equal(1, card.Overs(inningsNum));
+            Assert.Equal(0, card.Runs(inningsNum-1));
+            Assert.Equal(0, card.Wickets(inningsNum-1));
+            Assert.Equal(1, card.Overs(inningsNum-1));
         }
 
 
@@ -66,9 +66,9 @@ namespace CricketSimulatorTests
             card.WicketFallen(outcomes.LBW);
             card.EndOfOver();
             card.EndOfOver();
-            Assert.Equal(10, card.Runs(inningsNum));
-            Assert.Equal(3, card.Wickets(inningsNum));
-            Assert.Equal(2, card.Overs(inningsNum));
+            Assert.Equal(10, card.Runs(inningsNum-1));
+            Assert.Equal(3, card.Wickets(inningsNum-1));
+            Assert.Equal(2, card.Overs(inningsNum-1));
 
         }
 
@@ -106,6 +106,55 @@ namespace CricketSimulatorTests
             Assert.Equal(2, card.Runs(1));
             Assert.Equal(2, card.Wickets(1));
             Assert.Equal(3, card.Overs(1));
+
+
+        }
+
+        [Fact]
+        public void test_reset()
+        {
+            Scorecard card = new Scorecard();
+            int inningsNum = card.StartInnings();
+            card.RunsScored(outcomes.FOUR_BYES);
+            card.WicketFallen(outcomes.CAUGHT);
+            card.EndOfOver();
+            card.EndOfOver();
+
+            card.Reset();
+            Assert.Equal(0, card.Runs(0));
+            Assert.Equal(0, card.Wickets(0));
+            Assert.Equal(0, card.Overs(0));
+
+        }
+
+        [Fact]
+        public void test_innings_num()
+        {
+            Scorecard card = new Scorecard();
+            int inningsNum = card.StartInnings();
+            inningsNum = card.StartInnings();
+            inningsNum = card.StartInnings();
+            inningsNum = card.StartInnings();
+            Assert.Equal(4, card.Innings());
+
+
+        }
+
+        [Fact]
+        public void test_10_wickets_returns_true()
+        {
+            Scorecard card = new Scorecard();
+            int inningsNum = card.StartInnings();
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.False(card.WicketFallen(outcomes.BOWLED));
+            Assert.True(card.WicketFallen(outcomes.BOWLED));
 
 
         }

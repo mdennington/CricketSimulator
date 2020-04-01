@@ -9,27 +9,26 @@ namespace CricketSimulator.Model
         private Bowler _bowler;
         private Batsman _batsman;
         private Ball _ball;
-        private GetRandomNumber _rand;
+        private IRandomNumberGenerator _rand;
 
         public Game()
         {
-            _rand = new GetRandomNumber();
+
+        }
+
+        public Game(IRandomNumberGenerator randomNumGen)
+        {
+            _rand = randomNumGen;
             _bowler = new Bowler();
             _batsman = new Batsman(_rand);
             _ball = new Ball(_rand);
         }
-        public outcomes Play()
+        public virtual outcomes Play()
         {
-
-            // Initialise
-            GetRandomNumber rand = new GetRandomNumber();
 
             // Play
             outcomes outcome = _bowler.Bowl(_ball);
             outcomes outcomeFinal = _batsman.Play(outcome);
-
-            // Display Result
-            Console.WriteLine($"Outcome: {outcomeFinal}");
 
             return outcomeFinal;
         }

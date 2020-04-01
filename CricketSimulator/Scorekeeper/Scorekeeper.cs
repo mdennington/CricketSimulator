@@ -15,13 +15,13 @@ namespace CricketSimulator.Model
             _card = new Scorecard();
         }
         // Handle ball outcome
-        public bool BallOutcome(outcomes outcome)
+        public virtual bool BallOutcome(outcomes outcome)
         {
             _card.RunsScored(outcome);
             return _card.WicketFallen(outcome);
         }
         // Handle end of over
-        public bool EndOfOver()
+        public virtual bool EndOfOver()
         {
             _card.EndOfOver();
             return true;
@@ -29,7 +29,7 @@ namespace CricketSimulator.Model
 
 
         // Handle end of innings
-        public bool StartInnings()
+        public virtual bool StartInnings()
         {
             _card.StartInnings();
             return true;
@@ -42,7 +42,7 @@ namespace CricketSimulator.Model
             return true;
         }
 
-        // Need a Get Score Interface
+        
         public int NumberInnings()
         {
             return _card.Innings();
