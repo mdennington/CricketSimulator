@@ -1,4 +1,4 @@
-﻿namespace DddInPractice.Logic.Common
+﻿namespace CricketSimulator.Common
 {
     public abstract class ValueObject<T>
         where T : ValueObject<T>

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CricketSimulator", "CricketSimulator\CricketSimulator.csproj", "{5DE8FC94-2F62-49C1-8C8C-2586DEF33D6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CricketSimulatorTests", "CricketSimulatorTests\CricketSimulatorTests.csproj", "{7ACC527A-882F-45BA-8F91-E27C4F8CC8B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CricketSimulatorTests", "CricketSimulatorTests\CricketSimulatorTests.csproj", "{7ACC527A-882F-45BA-8F91-E27C4F8CC8B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CricketSimulatorUI", "CricketSimulatorUI\CricketSimulatorUI.csproj", "{261C26A5-A956-4DEA-9738-B4B0B9FD22CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7ACC527A-882F-45BA-8F91-E27C4F8CC8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ACC527A-882F-45BA-8F91-E27C4F8CC8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ACC527A-882F-45BA-8F91-E27C4F8CC8B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261C26A5-A956-4DEA-9738-B4B0B9FD22CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261C26A5-A956-4DEA-9738-B4B0B9FD22CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261C26A5-A956-4DEA-9738-B4B0B9FD22CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261C26A5-A956-4DEA-9738-B4B0B9FD22CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
