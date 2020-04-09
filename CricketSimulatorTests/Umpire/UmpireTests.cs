@@ -76,7 +76,3 @@ namespace CricketSimulatorTests
 }
 
 
-//thisScorekeeper.StartInnings();      
-//outcome = thisGame.Play();
-//thisScorekeeper.EndOfOver();
-//thisScorekeeper.BallOutcome(outcome);
