@@ -1,4 +1,6 @@
 ﻿using CricketSimulator.Model;
+using CricketSimulator.Common;
+using static CricketSimulator.Common.outcomes;
 using Moq;
 using System.Diagnostics.Tracing;
 using Xunit;
@@ -14,9 +16,9 @@ namespace CricketSimulatorTests
             Mock<Ball> mockBall;
             Bowler bowler = new Bowler();
             mockBall = new Mock<Ball>();
-            mockBall.Setup(m => m.Bowl()).Returns(()=>outcomes.BOWLED);
+            mockBall.Setup(m => m.Bowl()).Returns(()=>BOWLED);
             outcomes outcome = bowler.Bowl((Ball)mockBall.Object);
-            Assert.Equal(outcomes.BOWLED, outcome);
+            Assert.Equal(BOWLED, outcome);
         }
     }
 }

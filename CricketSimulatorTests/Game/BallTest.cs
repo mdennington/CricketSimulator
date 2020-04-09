@@ -1,4 +1,5 @@
 using CricketSimulator.Model;
+using CricketSimulator.Common;
 using Xunit;
 
 namespace CricketSimulatorTests

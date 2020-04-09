@@ -1,6 +1,9 @@
 ﻿using CricketSimulator.Model;
 using Xunit;
 using Xunit.Abstractions;
+using static CricketSimulator.Common.outcomes;
+using CricketSimulator.Common;
+using System;
 
 namespace CricketSimulatorTests
 {
@@ -8,67 +11,45 @@ namespace CricketSimulatorTests
 
     public class scorekeeperTests
     {
+        private Scorekeeper _scorekeeper;
+
+        public scorekeeperTests()
+        {
+            _scorekeeper = new Scorekeeper();
+        }
         [Fact]
         public void test_innings_started()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            Assert.Equal(0, scorekeeper.RunsScored(0));
-            Assert.Equal(0, scorekeeper.WicketsLost(0));
-            Assert.Equal(0, scorekeeper.OversBowled(0));
+            _scorekeeper.StartInnings();
+            assert_score(0, 0, 0, 0);
         }
 
         [Fact]
         public void test_runs_scored()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            scorekeeper.BallOutcome(outcomes.TWO_RUNS);
-            scorekeeper.BallOutcome(outcomes.BOWLED);
-            Assert.Equal(2, scorekeeper.RunsScored(0));
-            Assert.Equal(1, scorekeeper.WicketsLost(0));
-            Assert.Equal(0, scorekeeper.OversBowled(0));
-
+            _scorekeeper.StartInnings();
+            ball_sequence(new[] {TWO_RUNS, BOWLED });
+            assert_score(0, 2, 1, 0);
         }
 
         [Fact]
         public void test_complex_runs_scored()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            scorekeeper.BallOutcome(outcomes.TWO_RUNS);
-            scorekeeper.BallOutcome(outcomes.BOWLED);
-            scorekeeper.BallOutcome(outcomes.FOUR_BYES);
-            scorekeeper.BallOutcome(outcomes.CAUGHT); 
-            scorekeeper.BallOutcome(outcomes.NO_BALL);
-            scorekeeper.BallOutcome(outcomes.THREE_RUNS); 
-            scorekeeper.BallOutcome(outcomes.SIX_RUNS);
-            scorekeeper.BallOutcome(outcomes.STUMPED);
-            Assert.Equal(16, scorekeeper.RunsScored(0));
-            Assert.Equal(3, scorekeeper.WicketsLost(0));
-            // Note: not incrementing over as this is umpire call
-            Assert.Equal(0, scorekeeper.OversBowled(0));
-
+            _scorekeeper.StartInnings();
+            ball_sequence(new[] { TWO_RUNS, BOWLED, FOUR_BYES, CAUGHT, NO_BALL, THREE_RUNS, SIX_RUNS, STUMPED });
+            assert_score(0, 16, 3, 0);
         }
 
 
         [Fact]
         public void test_end_over()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            scorekeeper.BallOutcome(outcomes.TWO_RUNS);
-            scorekeeper.BallOutcome(outcomes.NO_BALL);
-            scorekeeper.BallOutcome(outcomes.TWO_BYES);
-            scorekeeper.BallOutcome(outcomes.CAUGHT);
-            scorekeeper.BallOutcome(outcomes.NO_BALL);
-            scorekeeper.BallOutcome(outcomes.FOUR_RUNS);
-            scorekeeper.BallOutcome(outcomes.THREE_RUNS);
-            scorekeeper.EndOfOver();
-            scorekeeper.BallOutcome(outcomes.STUMPED);
-            Assert.Equal(13, scorekeeper.RunsScored(0));
-            Assert.Equal(2, scorekeeper.WicketsLost(0));
-            Assert.Equal(1, scorekeeper.OversBowled(0));
+            _scorekeeper.StartInnings();
+            ball_sequence(new[] { TWO_RUNS, NO_BALL, TWO_BYES, CAUGHT, NO_BALL, FOUR_RUNS, THREE_RUNS } );
+            _scorekeeper.EndOfOver();
+            ball_sequence(new[] { STUMPED });
+
+            assert_score(0, 13, 2, 1);
         }
 
 
@@ -76,63 +57,50 @@ namespace CricketSimulatorTests
         [Fact]
         public void test_end_of_innings()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            scorekeeper.BallOutcome(outcomes.TWO_RUNS);
-            scorekeeper.BallOutcome(outcomes.NO_BALL);
-            scorekeeper.BallOutcome(outcomes.TWO_BYES);
-            scorekeeper.BallOutcome(outcomes.CAUGHT);
-            scorekeeper.BallOutcome(outcomes.NO_BALL);
-            scorekeeper.BallOutcome(outcomes.FOUR_RUNS);
-            scorekeeper.BallOutcome(outcomes.THREE_RUNS);
-            scorekeeper.EndOfOver();
-            scorekeeper.BallOutcome(outcomes.STUMPED);
-            scorekeeper.StartInnings();
-            scorekeeper.BallOutcome(outcomes.FOUR_RUNS);
-            scorekeeper.BallOutcome(outcomes.WIDE);
-            scorekeeper.BallOutcome(outcomes.LBW);
-            scorekeeper.BallOutcome(outcomes.RUN_OUT);
-            scorekeeper.BallOutcome(outcomes.ONE_BYE);
-            scorekeeper.BallOutcome(outcomes.ONE_LEGBYE);
-            scorekeeper.BallOutcome(outcomes.ONE_RUN);
-            scorekeeper.BallOutcome(outcomes.STUMPED);
-            scorekeeper.EndOfOver();
-            scorekeeper.EndOfOver();
-            Assert.Equal(13, scorekeeper.RunsScored(0));
-            Assert.Equal(2, scorekeeper.WicketsLost(0));
-            Assert.Equal(1, scorekeeper.OversBowled(0));
-            Assert.Equal(8, scorekeeper.RunsScored(1));
-            Assert.Equal(3, scorekeeper.WicketsLost(1));
-            Assert.Equal(2, scorekeeper.OversBowled(1));
-
-
+            _scorekeeper.StartInnings();
+            ball_sequence( new[] { TWO_RUNS, NO_BALL, TWO_BYES, CAUGHT, NO_BALL, FOUR_RUNS, THREE_RUNS });
+            _scorekeeper.EndOfOver();
+            ball_sequence(new[] { STUMPED });
+            _scorekeeper.StartInnings();
+            ball_sequence(new[] { FOUR_RUNS, WIDE, LBW, RUN_OUT, ONE_BYE, ONE_LEGBYE, ONE_RUN, STUMPED } );
+            _scorekeeper.EndOfOver();
+            _scorekeeper.EndOfOver();
+            assert_score(0, 13, 2, 1);
+            assert_score(1, 8, 3, 2);
         }
 
         [Fact]
         public void test_reset_scoreboard()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            scorekeeper.BallOutcome(outcomes.TWO_RUNS);
-            scorekeeper.BallOutcome(outcomes.NO_BALL);
-            scorekeeper.BallOutcome(outcomes.TWO_BYES);
-            scorekeeper.BallOutcome(outcomes.CAUGHT);
-            scorekeeper.ResetScoreboard();
-            Assert.Equal(0, scorekeeper.RunsScored(0));
-            Assert.Equal(0, scorekeeper.WicketsLost(0));
-            Assert.Equal(0, scorekeeper.OversBowled(0));
-
+            _scorekeeper.StartInnings();
+            ball_sequence( new[] { TWO_RUNS, NO_BALL, TWO_BYES, CAUGHT });
+            _scorekeeper.ResetScoreboard();
+            assert_score(0, 0, 0, 0);
+ 
         }
 
         [Fact]
         public void test_num_innings()
         {
-            Scorekeeper scorekeeper = new Scorekeeper();
-            scorekeeper.StartInnings();
-            scorekeeper.StartInnings();
-            scorekeeper.StartInnings();
-            Assert.Equal(3, scorekeeper.NumberInnings());
+            _scorekeeper.StartInnings();
+            _scorekeeper.StartInnings();
+            _scorekeeper.StartInnings();
+            Assert.Equal(3, _scorekeeper.NumberInnings());
 
+        }
+        void assert_score(int innings, int runs, int wickets, int overs)
+        {
+            Assert.Equal(runs, _scorekeeper.RunsScored(innings));
+            Assert.Equal(wickets, _scorekeeper.WicketsLost(innings));
+            Assert.Equal(overs, _scorekeeper.OversBowled(innings));
+        }
+
+        void ball_sequence(outcomes[] sequence)
+        {
+            foreach ( var ball in sequence)
+            {
+                _scorekeeper.BallOutcome(ball);
+            } 
         }
 
     }

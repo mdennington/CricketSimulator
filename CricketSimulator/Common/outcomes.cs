@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CricketSimulator.Model
+namespace CricketSimulator.Common
 {
 
-    public enum outcomes
+    public enum  outcomes
     {
         NO_RUNS,
         ONE_RUN,

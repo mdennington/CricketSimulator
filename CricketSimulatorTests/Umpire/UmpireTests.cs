@@ -1,5 +1,7 @@
 ﻿using Xunit;
 using CricketSimulator.Model;
+using CricketSimulator.Common;
+using static CricketSimulator.Common.outcomes;
 using Moq;
 using System.Collections.Generic;
 
@@ -15,7 +17,7 @@ namespace CricketSimulatorTests
             Mock<Scorekeeper> mockScorekeeper;
             mockGame = new Mock<Game>();
             mockScorekeeper = new Mock<Scorekeeper>();
-            mockGame.Setup(m => m.Play()).Returns(outcomes.BOWLED);
+            mockGame.Setup(m => m.Play()).Returns(BOWLED);
             mockScorekeeper.Setup(m => m.EndOfOver()).Returns(true);
             // Set up returns true-endOfInnings
             var ballOutcomes = new Queue<bool>();
@@ -47,7 +49,7 @@ namespace CricketSimulatorTests
             Mock<Scorekeeper> mockScorekeeper;
             mockGame = new Mock<Game>();
             mockScorekeeper = new Mock<Scorekeeper>();
-            mockGame.Setup(m => m.Play()).Returns(outcomes.BOWLED);
+            mockGame.Setup(m => m.Play()).Returns(BOWLED);
             mockScorekeeper.Setup(m => m.EndOfOver()).Returns(true);
             // Set up returns true-endOfInnings
             var ballOutcomes = new Queue<bool>();

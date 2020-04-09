@@ -1,4 +1,6 @@
 ﻿using CricketSimulator.Model;
+using CricketSimulator.Common;
+using static CricketSimulator.Common.outcomes;
 using System.Diagnostics.Tracing;
 using Xunit;
 
@@ -14,7 +16,7 @@ namespace CricketSimulatorTests
             Game thisGame = new Game(mock);
             outcomes outcomeFinal = thisGame.Play();
 
-            Assert.Equal(outcomes.ONE_RUN, outcomeFinal);
+            Assert.Equal(ONE_RUN, outcomeFinal);
         }
 
         [Fact]
@@ -24,7 +26,7 @@ namespace CricketSimulatorTests
             Game thisGame = new Game(mock);
             outcomes outcomeFinal = thisGame.Play();
 
-            Assert.Equal(outcomes.ONE_RUN, outcomeFinal);
+            Assert.Equal(ONE_RUN, outcomeFinal);
         }
     }
 }
