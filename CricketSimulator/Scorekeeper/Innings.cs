@@ -22,6 +22,7 @@ namespace CricketSimulator.Model
         public int nonStriker { get; set; }
         public int currentBowler { get;  set; }
         public int Extras { get; set; }
+        public int runsThisOver { get; set; }
 
         private List<BowlingStats> bowlerStats = new List<BowlingStats>();
         private List<string> _names = new List<string>();
@@ -42,6 +43,7 @@ namespace CricketSimulator.Model
             overs = 0;
             currentBowler = 0;
             Extras = 0;
+            runsThisOver = 0;
 
         }
 
@@ -59,9 +61,10 @@ namespace CricketSimulator.Model
             if (ScoreMap.runs.ContainsKey(outcome))
             {
                 newRuns = ScoreMap.runs[outcome];
-                _runs[this.Striker - 1] += (int)newRuns;
+                _runs[Striker - 1] += (int)newRuns;
                 runs += (int)newRuns;
                 bowlerStats[currentBowler].runs += newRuns;
+                runsThisOver += newRuns;
             }
             else if (ScoreMap.extras.ContainsKey(outcome))
             {
@@ -69,6 +72,7 @@ namespace CricketSimulator.Model
                 runs += (int)newRuns;
                 bowlerStats[currentBowler].runs += newRuns;
                 Extras += (int)newRuns;
+                runsThisOver += newRuns;
             }
 
             if (ScoreMap.changeEnds.Contains(outcome))
@@ -90,6 +94,7 @@ namespace CricketSimulator.Model
 
             // Add one to wickets
             wickets++;
+            bowlerStats[currentBowler].wickets++;
 
             // Calculate next batsman
             if (Striker > nonStriker)
@@ -123,6 +128,13 @@ namespace CricketSimulator.Model
         {
             bowlerStats[currentBowler].overs++;
             overs++;
+            int v = Striker;
+            Striker = nonStriker;
+            nonStriker = v;
+            if (runsThisOver == 0)
+            {
+                bowlerStats[currentBowler].maidens++;
+            }
         }
 
         public BowlingStats changeBowler(string bowlerName)
