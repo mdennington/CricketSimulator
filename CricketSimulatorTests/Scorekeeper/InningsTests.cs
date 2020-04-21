@@ -14,7 +14,18 @@ namespace CricketSimulatorTests
 
         public inningsTests()
         {
-            _innings = new Innings("Gary Sobers", "Simon Simple", "Third Batsman");
+            _innings = new Innings("Gary Sobers", 
+                                   "Simon Simple", 
+                                   "Third Batsman",
+                                   "Fourth Batsman",
+                                   "Fifth Batsman",
+                                   "Sixth Batsman",
+                                   "Seventth Batsman",
+                                   "Eighth Batsman",
+                                   "Ninth Batsman",
+                                   "Tenth Batsman",
+                                   "Eleventh Batsman"
+                                  );
             _bowler = _innings.changeBowler("Ian Botham");
         }
 
@@ -98,7 +109,7 @@ namespace CricketSimulatorTests
         [Fact]
         void test_second_batsmen_out_first()
         {
-            _innings.RunsScored(ONE_RUN);
+            runs_score(ONE_RUN);
             bool endInnings = _innings.wicketFell(BOWLED);
             assertBatsmanScore(1, 1);
             assertRunsWicketsOvers(1, 1, 0);
@@ -120,8 +131,7 @@ namespace CricketSimulatorTests
         [Fact]
         void test_new_bowler()
         {
-            _innings.RunsScored(NO_RUNS);
-            _innings.RunsScored(TWO_RUNS);
+            runs_score(NO_RUNS, TWO_RUNS);
             assertRunsWicketsOvers(2, 0, 0);
             assertBatsmanScore(1, 2);
             assertBowlerStats(_bowler, 2, 0, 0, 0);
@@ -131,14 +141,10 @@ namespace CricketSimulatorTests
         void test_second_bowler()
         {
             BowlingStats bowler1 = _innings.changeBowler("Ian Botham");
-            _innings.RunsScored(NO_RUNS);
-            _innings.RunsScored(TWO_RUNS);
+            runs_score(NO_RUNS, TWO_RUNS);
             _innings.endOfOver();
             BowlingStats bowler2 = _innings.changeBowler("Devon Malcolm");
-            _innings.RunsScored(THREE_RUNS);
-            _innings.RunsScored(WIDE);
-            _innings.RunsScored(FOUR_RUNS);
-            _innings.RunsScored(NO_RUNS);
+            runs_score(THREE_RUNS, WIDE, FOUR_RUNS, NO_RUNS);
 
             assertBatsmanScore(1, 6);
             assertBatsmanScore(2, 3);
@@ -154,12 +160,10 @@ namespace CricketSimulatorTests
         void test_bowler_maidens()
         {
             BowlingStats bowler1 = _innings.changeBowler("Ian Botham");
-            _innings.RunsScored(NO_RUNS);
-            _innings.RunsScored(NO_RUNS);
+            runs_score(NO_RUNS, NO_RUNS);
             _innings.endOfOver();
             BowlingStats bowler2 = _innings.changeBowler("Devon Malcolm");
-            _innings.RunsScored(TWO_RUNS);
-            _innings.RunsScored(FOUR_RUNS);
+            runs_score(TWO_RUNS, FOUR_RUNS);
 
             assertRunsWicketsOvers(6, 0, 1);
             assertBatsmanScore(1, 0);
@@ -192,9 +196,84 @@ namespace CricketSimulatorTests
 
         // void test_full_innings() including retrieving all scores and how out and bowling figures
         // Design a complex scenario with several sets of data to test and check scorecard at end
+        [Fact]
+        void test_full_innings_sim()
+        {
+            BowlingStats bowler1;
+            BowlingStats bowler2;
+            BowlingStats bowler3;
+            BowlingStats bowler4;
+            BowlingStats bowler5;
 
-        // # TODO clean up tests and add helpers
-        // # TODO refactor code where possible
+            // First Over - Maiden
+            bowler1 = _innings.changeBowler("Geoff Thomas");
+            runs_score(NO_RUNS, NO_RUNS, NO_RUNS, NO_RUNS, NO_RUNS, NO_RUNS);
+            _innings.endOfOver();
+
+            // Second Over - 14 for 1
+            bowler2 = _innings.changeBowler("Phil Tuffnell");
+            runs_score(FOUR_BYES, FOUR_RUNS, WIDE, NO_BALL, THREE_RUNS, ONE_RUN, NO_RUNS);
+            _innings.wicketFell(CAUGHT);
+            _innings.endOfOver();
+
+            // Third Over - 23 for 3
+            bowler1 = _innings.changeBowler("Geoff Thomas");
+            runs_score(THREE_RUNS, TWO_RUNS, NO_RUNS);
+            _innings.wicketFell(BOWLED);
+            runs_score(FOUR_RUNS, NO_RUNS);
+            _innings.wicketFell(LBW);
+            _innings.endOfOver();
+
+            // Fourth Over - 24 for 5
+            bowler3 = _innings.changeBowler("Devon Malcolm");
+            runs_score(ONE_RUN, NO_RUNS);
+            _innings.wicketFell(RUN_OUT);
+            runs_score(NO_RUNS, NO_RUNS);
+            _innings.wicketFell(STUMPED);
+            _innings.endOfOver();
+
+            // Fifth Over - 24 for 6
+            bowler4 = _innings.changeBowler("Darren Gough");
+            runs_score(NO_RUNS, NO_RUNS, NO_RUNS, NO_RUNS, NO_RUNS);
+            _innings.wicketFell(CAUGHT);
+            _innings.endOfOver();
+
+
+            // Sixth Over - 25 all out
+            bowler5 = _innings.changeBowler("Shane Warne");
+            runs_score(ONE_RUN);
+            _innings.wicketFell(BOWLED);
+            _innings.wicketFell(CAUGHT);
+            _innings.wicketFell(LBW);
+            bool endInnings = _innings.wicketFell(RUN_OUT);
+
+            // Assert - Validate Innings totals, bowler stats and batting stats
+            assertRunsWicketsOvers(25, 10, 5);
+            assertBatsmen(12, 7);
+            assertBatsmanScore(1, 5);
+            assertBatsmanScore(2, 7);
+            assertBatsmanScore(3, 2);
+            assertBatsmanScore(4, 4);
+            assertBatsmanScore(5, 0);
+            assertBatsmanScore(6, 0);
+            assertBatsmanScore(7, 1);
+            assertBatsmanScore(8, 0);
+            assertBatsmanScore(9, 0);
+            assertBatsmanScore(10, 0);
+            assertBatsmanScore(11, 0);
+            assertBowlerStats(bowler1, 9, 1, 2, 2);
+            assertBowlerStats(bowler2, 14, 0, 1, 1);
+            assertBowlerStats(bowler3, 1, 0, 1, 2);
+            assertBowlerStats(bowler4, 0, 1, 1, 1);
+            assertBowlerStats(bowler5, 1, 0, 0, 4);
+            Assert.Equal(6, _innings.Extras);
+
+        }
+
+        // TODO: Implement finer points of rules 
+        // e.g. Run out is not a bowler wicket, 
+        //do no balls and wides count against the bowler?
+        // TODO: refactor code where possible
 
         void assertBatsmen(int expStriker, int expNonStriker)
         {
@@ -221,6 +300,14 @@ namespace CricketSimulatorTests
             Assert.Equal(maidens, bowler.maidens);
             Assert.Equal(overs, bowler.overs);
             Assert.Equal(wickets, bowler.wickets);
+        }
+
+        void runs_score(params outcomes[] runs)
+        {
+            foreach (outcomes scored in runs)
+            {
+                _innings.RunsScored(scored);
+            }
         }
     }
 

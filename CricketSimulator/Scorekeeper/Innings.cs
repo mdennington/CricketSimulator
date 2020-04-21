@@ -135,6 +135,8 @@ namespace CricketSimulator.Model
             {
                 bowlerStats[currentBowler].maidens++;
             }
+            runsThisOver = 0;
+
         }
 
         public BowlingStats changeBowler(string bowlerName)
