@@ -10,24 +10,21 @@ namespace CricketSimulator.Model
         private Game thisGame;
         private Scorekeeper thisScorekeeper;
 
+        public Umpire()
+        {
+
+        }
+
         public Umpire(Game game, Scorekeeper scorekeeper)
         {
             thisGame = game;
             thisScorekeeper = scorekeeper;
         }
-        public void Start()
-        {
-            // Set Up First innings
-            thisScorekeeper.ResetScoreboard();
-            playInnings();
-            playInnings();
 
-        }
 
-        private void playInnings()
+        public virtual void playInnings()
         {
             bool endOfInnings = false;
-            thisScorekeeper.StartInnings();
             while (!endOfInnings)
             {
 
@@ -39,7 +36,7 @@ namespace CricketSimulator.Model
                     outcome = thisGame.Play();
                     endOfOver = thisOver.CountBalls(outcome);
                     if (endOfOver) thisScorekeeper.EndOfOver();
-                    endOfInnings = thisScorekeeper.BallOutcome(outcome);
+                    endOfInnings = thisScorekeeper.HandleEvent(outcome);
                 } while (!endOfOver && !endOfInnings);
             }
         }

@@ -6,11 +6,154 @@
 <h1>Play</h1>
 
 <h3>First Team</h3>
-@Model.runs[0] Runs for 
-@Model.wickets[0] Wickets in 
+@Model.runs[0] Runs for
+@Model.wickets[0] Wickets in
 @Model.overs[0] Overs
 
 <h3>Second Team</h3>
 @Model.runs[1] Runs for
 @Model.wickets[1] Wickets in
 @Model.overs[1] Overs
+
+<h2>Team 1</h2>
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+        .tg td {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
+
+        .tg th {
+            border-color: black;
+            border-style: solid;
+            border-width: 1px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            overflow: hidden;
+            padding: 10px 5px;
+            word-break: normal;
+        }
+
+        .tg .tg-lqy6 {
+            text-align: right;
+            vertical-align: top
+        }
+
+        .tg .tg-0lax {
+            text-align: left;
+            vertical-align: top
+        }
+</style>
+<table class="tg">
+    <tr>
+        <th class="tg-0lax">@Model.team1[0]</th>
+        <th class="tg-lqy6">@Model.scores1[0]</th>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[1]</td>
+        <td class="tg-lqy6">@Model.scores1[1]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[2]</td>
+        <td class="tg-lqy6">@Model.scores1[2]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[3]</td>
+        <td class="tg-lqy6">@Model.scores1[3]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[4]</td>
+        <td class="tg-lqy6">@Model.scores1[4]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[5]</td>
+        <td class="tg-lqy6">@Model.scores1[5]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[6]</td>
+        <td class="tg-lqy6">@Model.scores1[6]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[7]</td>
+        <td class="tg-lqy6">@Model.scores1[7]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[8]</td>
+        <td class="tg-lqy6">@Model.scores1[8]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[9]</td>
+        <td class="tg-lqy6">@Model.scores1[9]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team1[10]</td>
+        <td class="tg-lqy6">@Model.scores1[10]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">Extras</td>
+        <td class="tg-lqy6">@Model.extras[0]</td>
+    </tr>
+</table>
+
+<h2>Team 2</h2>
+<table class="tg">
+    <tr>
+        <th class="tg-0lax">@Model.team2[0]</th>
+        <th class="tg-lqy6">@Model.scores2[0]</th>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[1]</td>
+        <td class="tg-lqy6">@Model.scores2[1]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[2]</td>
+        <td class="tg-lqy6">@Model.scores2[2]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[3]</td>
+        <td class="tg-lqy6">@Model.scores2[3]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[4]</td>
+        <td class="tg-lqy6">@Model.scores2[4]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[5]</td>
+        <td class="tg-lqy6">@Model.scores2[5]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[6]</td>
+        <td class="tg-lqy6">@Model.scores2[6]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[7]</td>
+        <td class="tg-lqy6">@Model.scores2[7]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[8]</td>
+        <td class="tg-lqy6">@Model.scores2[8]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[9]</td>
+        <td class="tg-lqy6">@Model.scores2[9]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">@Model.team2[10]</td>
+        <td class="tg-lqy6">@Model.scores2[10]</td>
+    </tr>
+    <tr>
+        <td class="tg-0lax">Extras</td>
+        <td class="tg-lqy6">@Model.extras[1]</td>
+    </tr>
+</table>

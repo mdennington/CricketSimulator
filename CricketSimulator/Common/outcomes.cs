@@ -76,5 +76,13 @@ namespace CricketSimulator.Common
           outcomes.ONE_LEGBYE,
           outcomes.THREE_LEGBYES,
           outcomes.TWO_WIDES};
+
+        public static readonly List<outcomes> extraBall = new List<outcomes>
+        { outcomes.NO_BALL,
+          outcomes.WIDE,
+          outcomes.TWO_WIDES,
+          outcomes.THREE_WIDES,
+          outcomes.FOUR_WIDES
+        };
     }
 }
